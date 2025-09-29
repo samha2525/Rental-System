@@ -2,7 +2,10 @@ import Link from "next/link";
 
 export default function UserNavbar() {
   return (
-    <nav className="flex items-center justify-between bg-gray-900 px-8 py-4 text-white shadow-md">
+    <nav
+      id="navbar"
+      className="flex items-center justify-between bg-gray-900 px-8 py-4 text-white shadow-md"
+    >
       {/* Logo */}
       <div className="text-xl font-bold">
         <Link href="/user/dashboard">User Panel</Link>

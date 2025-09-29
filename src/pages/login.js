@@ -1,16 +1,17 @@
 import React, { useState, useEffect } from "react";
 import { motion } from "framer-motion";
 import { useRouter } from "next/router";
+import Link from "next/link";
 
 export default function LoginPage() {
   const router = useRouter();
   const [role, setRole] = useState("user");
-  const [offset, setOffset] = useState(96); // default padding
+  const [offset, setOffset] = useState(96);
 
   useEffect(() => {
     const navbar = document.getElementById("navbar");
     if (navbar) {
-      setOffset(navbar.offsetHeight + 32); // navbar height + 2rem
+      setOffset(navbar.offsetHeight + 32);
     }
   }, []);
 
@@ -108,9 +109,9 @@ export default function LoginPage() {
 
         <p className="text-center text-sm text-gray-500 mt-10">
           Don’t have an account?{" "}
-          <a href="/signup" className="text-fuchsia-400 hover:underline">
+          <Link href="/signup" className="text-fuchsia-400 hover:underline">
             Sign up
-          </a>
+          </Link>
         </p>
       </motion.div>
     </main>

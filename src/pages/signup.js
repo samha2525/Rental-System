@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { motion } from "framer-motion";
+import Link from "next/link";
 
 export default function SignUpPage() {
   const [offset, setOffset] = useState(96);
@@ -28,8 +29,11 @@ export default function SignUpPage() {
       >
         <h1 className="text-4xl font-extrabold text-center mb-3">Create Account</h1>
         <p className="text-gray-400 text-center mb-10 text-lg">
-          Join <span className="text-transparent bg-clip-text bg-gradient-to-r from-blue-400 to-fuchsia-400">EasyDrive</span> 
-          {" "}and start your journey today
+          Join{" "}
+          <span className="text-transparent bg-clip-text bg-gradient-to-r from-blue-400 to-fuchsia-400">
+            EasyDrive
+          </span>{" "}
+          and start your journey today
         </p>
 
         {/* Form */}
@@ -64,9 +68,9 @@ export default function SignUpPage() {
 
         <p className="text-center text-sm text-gray-500 mt-10">
           Already have an account?{" "}
-          <a href="/login" className="text-fuchsia-400 hover:underline">
+          <Link href="/login" className="text-fuchsia-400 hover:underline">
             Login
-          </a>
+          </Link>
         </p>
       </motion.div>
     </main>

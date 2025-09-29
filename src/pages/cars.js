@@ -1,4 +1,4 @@
-import { useState, useEffect } from "react";
+import { useState } from "react";
 import { motion } from "framer-motion";
 import { useRouter } from "next/router";
 
@@ -37,18 +37,6 @@ export default function Cars() {
     router.push(`/user/book?car=${car.name}`);
   };
 
-  // 🚀 Scroll lock when modal is open
-  useEffect(() => {
-    if (selectedCar) {
-      document.body.style.overflow = "hidden";
-    } else {
-      document.body.style.overflow = "";
-    }
-    return () => {
-      document.body.style.overflow = "";
-    };
-  }, [selectedCar]);
-
   return (
     <main className="min-h-screen bg-black px-6 py-16 text-white">
       {/* Cars Grid */}
@@ -81,13 +69,17 @@ export default function Cars() {
 
       {/* Modal for Car Details */}
       {selectedCar && (
-        <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/70 backdrop-blur-sm overflow-y-auto p-6">
+        <div
+          className="fixed inset-0 z-50 flex items-center justify-center bg-black/70 backdrop-blur-sm overflow-y-auto"
+          onClick={() => setSelectedCar(null)} // close on background click
+        >
           <motion.div
             initial={{ scale: 0.9, opacity: 0 }}
             animate={{ scale: 1, opacity: 1 }}
             exit={{ scale: 0.9, opacity: 0 }}
             transition={{ duration: 0.3 }}
-            className="relative w-full max-w-2xl bg-gray-900 rounded-2xl p-8 shadow-2xl border border-white/10"
+            className="relative w-full max-w-2xl bg-gray-900 rounded-2xl p-8 shadow-2xl border border-white/10 my-10"
+            onClick={(e) => e.stopPropagation()} // prevent closing when clicking inside modal
           >
             <button
               onClick={() => setSelectedCar(null)}

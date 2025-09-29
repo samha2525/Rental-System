@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { motion } from "framer-motion";
 import { useRouter } from "next/router";
 
@@ -37,6 +37,18 @@ export default function Cars() {
     router.push(`/user/book?car=${car.name}`);
   };
 
+  // 🚀 Scroll lock when modal is open
+  useEffect(() => {
+    if (selectedCar) {
+      document.body.style.overflow = "hidden";
+    } else {
+      document.body.style.overflow = "";
+    }
+    return () => {
+      document.body.style.overflow = "";
+    };
+  }, [selectedCar]);
+
   return (
     <main className="min-h-screen bg-black px-6 py-16 text-white">
       {/* Cars Grid */}
@@ -56,7 +68,9 @@ export default function Cars() {
               className="mb-4 h-48 w-full rounded-lg object-cover"
             />
             <h2 className="text-2xl font-bold">{car.name}</h2>
-            <p className="text-gray-400">{car.model} • {car.transmission}</p>
+            <p className="text-gray-400">
+              {car.model} • {car.transmission}
+            </p>
             <p className="text-gray-400">{car.category}</p>
             <p className="mt-2 text-lg font-semibold text-blue-400">
               ${car.price}/day
@@ -67,7 +81,7 @@ export default function Cars() {
 
       {/* Modal for Car Details */}
       {selectedCar && (
-        <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/70 backdrop-blur-sm">
+        <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/70 backdrop-blur-sm overflow-y-auto p-6">
           <motion.div
             initial={{ scale: 0.9, opacity: 0 }}
             animate={{ scale: 1, opacity: 1 }}
@@ -77,7 +91,7 @@ export default function Cars() {
           >
             <button
               onClick={() => setSelectedCar(null)}
-              className="absolute top-3 right-3 text-gray-400 hover:text-white"
+              className="absolute top-3 right-3 text-gray-400 hover:text-white text-lg"
             >
               ✕
             </button>
@@ -91,12 +105,24 @@ export default function Cars() {
             <p className="text-gray-400 mb-6">{selectedCar.description}</p>
 
             <div className="grid grid-cols-2 gap-4 text-sm mb-6">
-              <div><strong>Model:</strong> {selectedCar.model}</div>
-              <div><strong>Color:</strong> {selectedCar.color}</div>
-              <div><strong>Transmission:</strong> {selectedCar.transmission}</div>
-              <div><strong>Category:</strong> {selectedCar.category}</div>
-              <div><strong>Status:</strong> {selectedCar.status}</div>
-              <div><strong>Price:</strong> ${selectedCar.price}/day</div>
+              <div>
+                <strong>Model:</strong> {selectedCar.model}
+              </div>
+              <div>
+                <strong>Color:</strong> {selectedCar.color}
+              </div>
+              <div>
+                <strong>Transmission:</strong> {selectedCar.transmission}
+              </div>
+              <div>
+                <strong>Category:</strong> {selectedCar.category}
+              </div>
+              <div>
+                <strong>Status:</strong> {selectedCar.status}
+              </div>
+              <div>
+                <strong>Price:</strong> ${selectedCar.price}/day
+              </div>
             </div>
 
             <motion.button
